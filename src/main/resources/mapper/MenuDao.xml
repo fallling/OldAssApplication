@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leng.oldass.dao.MenuDao">
+
+    <resultMap type="com.leng.oldass.entity.Menu" id="MenuMap">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="iconCls" column="iconCls" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+        <result property="enabled" column="enabled" jdbcType="INTEGER"/>
+        <result property="enabled" column="enabled" jdbcType="BIT"/>
+        <association property="meta" javaType="com.leng.oldass.entity.Meta">
+            <result column="keepAlive" property="keepalive" jdbcType="BIT"/>
+            <result column="requireAuth" property="requireAuth" jdbcType="BIT"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="Menus2" type="com.leng.oldass.entity.Menu" extends="MenuMap">
+        <collection property="children" ofType="com.leng.oldass.entity.Menu">
+            <id column="id2" property="id" jdbcType="INTEGER"/>
+            <result property="url" column="url2" jdbcType="VARCHAR"/>
+            <result property="path" column="path2" jdbcType="VARCHAR"/>
+            <result property="component" column="component2" jdbcType="VARCHAR"/>
+            <result property="name" column="name2" jdbcType="VARCHAR"/>
+            <result property="iconCls" column="iconCls2" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parentId2" jdbcType="INTEGER"/>
+            <result property="enabled" column="enabled2" jdbcType="INTEGER"/>
+            <result property="enabled" column="enabled2" jdbcType="BIT"/>
+            <association property="meta" javaType="com.leng.oldass.entity.Meta">
+                <result column="keepAlive" property="keepalive" jdbcType="BIT"/>
+                <result column="requireAuth" property="requireAuth" jdbcType="BIT"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <resultMap id="MenuWithRole" type="com.leng.oldass.entity.Menu" extends="MenuMap">
+        <collection property="roles" ofType="com.leng.oldass.entity.Role">
+            <id column="rid" property="id"/>
+            <id column="rName" property="name"/>
+            <id column="rNameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="MenuWithChildren" type="com.leng.oldass.entity.Menu" extends="MenuMap">
+        <id column="id1" property="id"/>
+        <result column="name1" property="name"/>
+        <collection property="children" ofType="com.leng.oldass.entity.Menu">
+            <id column="id3" property="id"/>
+            <result column="name3" property="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMenuIdsByRoleId" resultType="java.lang.Integer">
+        select menuId from menu_role where roleId=#{roleId};
+    </select>
+
+    <select id="getAllMenus" resultMap="MenuWithChildren">
+        select m1.id as id1, m1.name as name1, m2.id as id2, m2.name as name2, m3.id as id3, m3.name as name3
+        from menu m1, menu m2, menu m3
+        where m1.id = m2.parentId and m2.id = m3.parentId and m3.enabled = true order by m1.id, m2.id, m3.id
+    </select>
+
+
+    <select id="getAllMenusWithRole" resultMap="MenuWithRole">
+        select m.*, r.id as rid, r.name as rName, r.nameZh as rNameZh
+        from menu m, menu_role mr, role r
+        where m.id = mr.menuId and mr.roleId = r.id
+        order by m.id
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MenuMap">
+        select
+          id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
+        from menu
+        where id = #{id};
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MenuMap">
+        select
+          id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
+        from menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="path != null and path != ''">
+                and path = #{path}
+            </if>
+            <if test="component != null and component != ''">
+                and component = #{component}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="iconCls != null and iconCls != ''">
+                and iconCls = #{iconCls}
+            </if>
+            <if test="keepAlive != null">
+                and keepAlive = #{keepAlive}
+            </if>
+            <if test="requireAuth != null">
+                and requireAuth = #{requireAuth}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="MenuMap">
+        select * from menu;
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="path != null and path != ''">
+                and path = #{path}
+            </if>
+            <if test="component != null and component != ''">
+                and component = #{component}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="iconCls != null and iconCls != ''">
+                and iconCls = #{iconCls}
+            </if>
+            <if test="keepAlive != null">
+                and keepAlive = #{keepAlive}
+            </if>
+            <if test="requireAuth != null">
+                and requireAuth = #{requireAuth}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled)
+        values (#{url}, #{path}, #{component}, #{name}, #{iconCls}, #{keepAlive}, #{requireAuth}, #{parentId}, #{enabled})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.url}, #{entity.path}, #{entity.component}, #{entity.name}, #{entity.iconCls}, #{entity.keepAlive}, #{entity.requireAuth}, #{entity.parentId}, #{entity.enabled})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.url}, #{entity.path}, #{entity.component}, #{entity.name}, #{entity.iconCls}, #{entity.keepAlive}, #{entity.requireAuth}, #{entity.parentId}, #{entity.enabled})
+        </foreach>
+        on duplicate key update
+        url = values(url),
+        path = values(path),
+        component = values(component),
+        name = values(name),
+        iconCls = values(iconCls),
+        keepAlive = values(keepAlive),
+        requireAuth = values(requireAuth),
+        parentId = values(parentId),
+        enabled = values(enabled)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update menu
+        <set>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="path != null and path != ''">
+                path = #{path},
+            </if>
+            <if test="component != null and component != ''">
+                component = #{component},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="iconCls != null and iconCls != ''">
+                iconCls = #{iconCls},
+            </if>
+            <if test="keepAlive != null">
+                keepAlive = #{keepAlive},
+            </if>
+            <if test="requireAuth != null">
+                requireAuth = #{requireAuth},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from menu where id = #{id}
+    </delete>
+
+</mapper>
+

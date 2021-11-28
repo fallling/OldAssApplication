@@ -1,0 +1,34 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: 000000
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.35.8.27:3306/BreakingWind
+    username: root
+    password: lengzq@xyq
+  #Redis配置
+  redis:
+    database: 0
+    host: 101.35.8.27
+    port: 6379
+    password: abc123
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+  #缓存配置
+  cache:
+    cache-names: menus_cache;
+    redis:
+      time-to-live: 1800s
+#端口配置
+server:
+  port: 8082
+
+logging:
+  config: src/main/resources/config/logback.xml
