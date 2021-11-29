@@ -1,5 +1,6 @@
 package com.leng.oldass.config;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -50,8 +51,9 @@ public class AopLog {
             logger.info("URL:" + request.getRequestURI());
             logger.info("HTTP方法:" + request.getMethod());
             logger.info("IP地址:" + request.getRemoteAddr());
+            logger.info("请求参数:" + JSON.toJSONString(request.getParameterMap()));
             logger.info("类的方法" + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-            logger.info("参数:" + request.getQueryString());
+
         }
 
     }
@@ -59,7 +61,7 @@ public class AopLog {
     @AfterReturning(pointcut = "aopWebLog()", returning = "retObject")
     public void doAfterReturning(Object retObject) throws Throwable{
         //处理完请求，返回内容
-        logger.info("应答值:" + retObject);
+        logger.info("应答值:" + JSON.toJSONString(retObject));
         logger.info("费时:" + (System.currentTimeMillis() - startTime.get()));
     }
 
@@ -70,6 +72,6 @@ public class AopLog {
      */
     @AfterThrowing(pointcut = "aopWebLog()", throwing = "e")
     public void addAfterThrowingLogger(JoinPoint joinPoint, Exception e){
-        logger.error("执行" + "异常",e);
+        logger.error("执行"+ joinPoint + "异常",e);
     }
 }

@@ -1,11 +1,14 @@
 package com.leng.oldass.util;
 
 
+import lombok.Data;
+
 /**
  * @author lengzq
  * @since 2021/11/23 17:57
  */
 
+@Data
 public class RespBean {
     private Integer status;
     private String msg;

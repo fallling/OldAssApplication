@@ -67,7 +67,10 @@ public class User implements Serializable, UserDetails {
     public String getUsername() {
         return username;
     }
-
+    @Override
+    public String getPassword() {
+        return password;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -85,7 +88,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
 
     @Override
@@ -95,11 +98,6 @@ public class User implements Serializable, UserDetails {
             authorityList.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorityList;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 }
 

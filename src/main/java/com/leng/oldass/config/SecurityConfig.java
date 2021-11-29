@@ -44,14 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserServiceImpl userService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
     }
 
     @Override
@@ -63,8 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 登录响应
                 .and().formLogin().failureHandler(new AuthenticationFailureHandler() {
                     @Override
-                    public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp,
-                                                        AuthenticationException e) throws IOException {
+                    public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException {
                         resp.setContentType("application/json;charset=utf-8");
                         RespBean rm;
                         if (e instanceof BadCredentialsException || e instanceof UsernameNotFoundException) {
@@ -80,7 +79,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         } else {
                             rm = RespBean.error("登录失败!", "");
                         }
-                        rm = RespBean.error("error","");
                         logger.info(JSON.toJSONString(rm));
                         resp.setStatus(401);
                         PrintWriter out = resp.getWriter();
