@@ -59,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/login").permitAll()
-
                 // 登录响应
                 .and().formLogin().failureHandler(new AuthenticationFailureHandler() {
                     @Override
@@ -100,7 +99,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 }).permitAll()
-
                 // 退出登录
                 .and().logout().logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override

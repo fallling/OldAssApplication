@@ -1,7 +1,6 @@
 package com.leng.oldass.controller;
 
 import com.leng.oldass.util.RespBean;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @RequestMapping(value = "/login")
-    public String login(){
-        return "hello";
+    public RespBean login(){
+        return RespBean.error("您还未登录，请登录！");
     }
 
     @RequestMapping(value = "/home")
-    public String home(){
-        return "home";
+    public RespBean home(){
+        return RespBean.error("权限问题");
     }
 }
