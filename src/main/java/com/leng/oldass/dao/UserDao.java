@@ -31,6 +31,12 @@ public interface UserDao {
     User loadUserByUserName(String username);
 
     /**
+     * 通过邮箱查询单条数据
+     * @param email
+     * @return
+     */
+    User loadUserByEmail(String email);
+    /**
      * 查询指定行数据
      *
      * @param user 查询条件

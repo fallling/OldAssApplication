@@ -10,7 +10,7 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.35.8.27:3306/BreakingWind
+    url: jdbc:mysql://101.35.8.27:3306/BreakingWind?tinyInt1isBit=false
     username: root
     password: lengzq@xyq
   #Redis配置

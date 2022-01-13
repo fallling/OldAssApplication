@@ -43,6 +43,13 @@
         select r.* from role r, user_role ur where ur.roleId = r.id and ur.userId = #{id};
     </select>
 
+    <!--通过email查询用户-->
+    <select id="loadUserByEmail" resultMap="UserMap">
+        select
+            id, name, phone, email, enabled, username, password, usrface, remark
+        from user
+        where email = #{email}
+    </select>
     <!--通过username查询用户-->
     <select id="loadUserByUserName" resultMap="UserWithRoles">
         select user.*, r.id as rid, r.name as rName, r.nameZh as rNameZh from user left join user_role ur on user.id = ur.userId

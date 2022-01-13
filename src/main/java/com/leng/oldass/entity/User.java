@@ -1,6 +1,8 @@
 package com.leng.oldass.entity;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,9 +39,10 @@ public class User implements Serializable, UserDetails {
      * 邮箱
      */
     private String email;
-        /**
+    /**
      * 账户是否可用
      */
+    @Getter(value = AccessLevel.NONE)
     private Boolean enabled;
         /**
      * 用户名
@@ -92,11 +95,15 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (Role role : roles){
-            authorityList.add(new SimpleGrantedAuthority(role.getName()));
+        if(roles != null) {
+            List<GrantedAuthority> authorityList = new ArrayList<>();
+            for (Role role : roles) {
+                authorityList.add(new SimpleGrantedAuthority(role.getName()));
+            }
+            return authorityList;
+        }else {
+            return null;
         }
-        return authorityList;
     }
 }
 

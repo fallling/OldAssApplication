@@ -21,6 +21,20 @@ public interface UserService {
     User queryById(Integer id);
 
     /**
+     * 邮箱是否已被使用
+     * @param email 邮箱
+     * @return boolean
+     */
+    boolean isExistUser(String email);
+
+    /**
+     * 用户名是否已存在
+     * @param username 用户名
+     * @return boolean
+     */
+    boolean isExistUserName(String username);
+
+    /**
      * 分页查询
      *
      * @param user 筛选条件

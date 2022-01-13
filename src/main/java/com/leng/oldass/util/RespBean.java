@@ -26,6 +26,10 @@ public class RespBean {
         return new RespBean(200, msg, object);
     }
 
+    public static RespBean success(String msg, Integer status){
+        return new RespBean(status, msg, null);
+    }
+
     public static RespBean error(String msg) {
         return new RespBean(500, msg, null);
     }
@@ -34,6 +38,9 @@ public class RespBean {
         return new RespBean(500, msg, object);
     }
 
+    public static RespBean error(String msg, Integer status){
+        return new RespBean(status, msg, null);
+    }
 
     private RespBean(){
 

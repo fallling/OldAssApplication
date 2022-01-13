@@ -2,8 +2,11 @@ package com.leng.oldass.config;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.leng.oldass.entity.User;
+import com.leng.oldass.security.CustomizeAuthenticationSuccessHandler;
 import com.leng.oldass.service.impl.UserServiceImpl;
 import com.leng.oldass.util.RespBean;
+import com.leng.oldass.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +42,13 @@ import java.io.PrintWriter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private CustomizeAuthenticationSuccessHandler successHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -85,12 +91,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.flush();
                         out.close();
                     }
-                }).successHandler(new AuthenticationSuccessHandler() {
+                }).successHandler(
+                        successHandler
+   /*                     new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication auth)
                             throws IOException {
                         resp.setContentType("application/json;charset=utf-8");
-                        Object curUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        User curUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                         RespBean rm = RespBean.success("登录成功!", curUser);
                         ObjectMapper om = new ObjectMapper();
                         PrintWriter out = resp.getWriter();
@@ -98,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.flush();
                         out.close();
                     }
-                }).permitAll()
+                }*/).permitAll()
                 // 退出登录
                 .and().logout().logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override

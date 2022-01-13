@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.PushBuilder;
 
 /**
  * user表(User)表服务实现类
@@ -35,6 +36,29 @@ public class UserServiceImpl implements UserService , UserDetailsService {
     @Override
     public User queryById(Integer id) {
         return this.userDao.queryById(id);
+    }
+
+    /**
+     * 通过邮箱查询单挑数据
+     *
+     * @param email 邮箱
+     * @return 实例对象
+     */
+    @Override
+    public boolean isExistUser(String email) {
+        return userDao.loadUserByEmail(email) != null;
+    }
+
+    /**
+     * 用户名是否已存在
+     *
+     * @param username 用户名
+     * @return boolean
+     */
+    @Override
+    public boolean isExistUserName(String username) {
+        User user = userDao.loadUserByUserName(username);
+        return user != null;
     }
 
     /**
