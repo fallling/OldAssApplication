@@ -10,13 +10,13 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.35.8.27:3306/BreakingWind?tinyInt1isBit=false
+    url: jdbc:mysql://47.94.164.148/BreakingWind?tinyInt1isBit=false
     username: root
-    password: lengzq@xyq
+    password: lengzq@Xyq123
   #Redis配置
   redis:
     database: 0
-    host: 101.35.8.27
+    host: 47.94.164.148
     port: 6379
     password: abc123
     jedis:
@@ -36,3 +36,9 @@ server:
 
 logging:
   config: src/main/resources/config/logback.xml
+
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.leng.oldass
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
