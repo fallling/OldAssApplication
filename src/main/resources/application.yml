@@ -1,4 +1,6 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   devtools:
     restart:
       enabled: true  #设置开启热部署
@@ -13,6 +15,7 @@ spring:
     url: jdbc:mysql://47.94.164.148/BreakingWind?tinyInt1isBit=false
     username: root
     password: lengzq@Xyq123
+    type: com.alibaba.druid.pool.DruidDataSource
   #Redis配置
   redis:
     database: 0

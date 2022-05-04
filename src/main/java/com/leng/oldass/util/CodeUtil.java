@@ -1,10 +1,8 @@
 package com.leng.oldass.util;
 
-import com.leng.oldass.controller.LoginController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**

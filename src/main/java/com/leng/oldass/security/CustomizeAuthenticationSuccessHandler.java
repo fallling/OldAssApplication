@@ -1,9 +1,6 @@
 package com.leng.oldass.security;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leng.oldass.controller.ValidateController;
-import com.leng.oldass.entity.User;
 import com.leng.oldass.util.RespBean;
 import com.leng.oldass.util.TokenUtil;
 import org.slf4j.Logger;
@@ -27,7 +24,7 @@ import java.io.PrintWriter;
 @Component
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(ValidateController.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
