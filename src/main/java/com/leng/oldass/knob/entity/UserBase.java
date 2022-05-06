@@ -21,32 +21,6 @@ public class UserBase extends Model<UserBase> {
     
     @Serial
     private static final long serialVersionUID = 853653676739384949L;
-    
-    /**
-     * 租户号
-     */
-    @TableId
-    private String tenantId;
-    /**
-     * 乐观锁
-     */
-    private Integer revision;
-    /**
-     * 创建人
-     */
-    private String createdBy;
-    /**
-     * 创建时间
-     */
-    private Date createdTime;
-    /**
-     * 更新人
-     */
-    private String updatedBy;
-    /**
-     * 更新时间
-     */
-    private Date updatedTime;
     /**
      * ID
      */

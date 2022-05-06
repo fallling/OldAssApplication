@@ -17,6 +17,7 @@ import org.springframework.context.annotation.ImportResource;
 @MapperScan("com.leng.oldass.explore.dao")
 @MapperScan("com.leng.oldass.knob.dao")
 @MapperScan("com.leng.oldass.login.dao")
+@MapperScan("com.leng.oldass.teamSpace.dao")
 public class OldAssApplication {
 
     public static void main(String[] args) {

@@ -7,9 +7,11 @@ import com.leng.oldass.util.RespBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @author lengzq
@@ -47,8 +49,9 @@ public class LoginController {
                 return RespBean.error("用户名已被注册",1003);
             }else{
                 User user = new User();
+                user.setUserId(String.valueOf(UUID.randomUUID()));
                 user.setUserName(username);
-                user.setUserPass(password);
+                user.setUserPass(new BCryptPasswordEncoder().encode(password));
                 user.setEmail(email);
                 userService.save(user);
             }

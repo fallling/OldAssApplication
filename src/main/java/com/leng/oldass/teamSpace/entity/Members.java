@@ -1,39 +1,39 @@
-package com.leng.oldass.knob.entity;
+package com.leng.oldass.teamSpace.entity;
 
-import java.util.Date;
 import java.io.Serial;
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 用户知识清单(UserList)表实体类
+ * 成员(Members)表实体类
  *
  * @author lengzq
- * @since 2022-03-20 02:32:12
+ * @since 2022-05-06 18:01:34
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserList extends Model<UserList> {
+public class Members extends Model<Members> {
     
     @Serial
     private static final long serialVersionUID = 853653676739384949L;
     
     /**
-     * ID
+     * 主键id
      */
-    @TableId
     private String id;
     /**
-     * 用户ID
+     * 团队id
+     */
+    private String teamId;
+    /**
+     * 成员id
      */
     private String userId;
     /**
-     * 清单ID
+     * 角色id
      */
-    private String listId;
+    private String roleId;
+
 }
 

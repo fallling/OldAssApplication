@@ -35,30 +35,5 @@ public class Role extends Model<Role> {
      * 角色介绍
      */
     private String roleIntro;
-    /**
-     * 租户号
-     */
-    private String tenantId;
-    /**
-     * 乐观锁
-     */
-    private String revision;
-    /**
-     * 创建人
-     */
-    private String createdBy;
-    /**
-     * 创建时间
-     */
-    private Date createdTime;
-    /**
-     * 更新人
-     */
-    private String updatedBy;
-    /**
-     * 更新时间
-     */
-    private Date updatedTime;
-
 }
 
