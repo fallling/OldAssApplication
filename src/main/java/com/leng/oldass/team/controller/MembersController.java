@@ -1,7 +1,9 @@
-package com.leng.oldass.teamSpace.controller;
+package com.leng.oldass.team.controller;
 
-import com.leng.oldass.teamSpace.entity.Members;
-import com.leng.oldass.teamSpace.service.MembersService;
+import com.leng.oldass.team.entity.MemberView;
+import com.leng.oldass.team.entity.Members;
+import com.leng.oldass.team.service.MemberViewService;
+import com.leng.oldass.team.service.MembersService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +27,18 @@ public class MembersController {
     @Resource
     private MembersService membersService;
 
+    @Resource
+    private MemberViewService memberViewService;
     /**
      * 分页查询
      *
      * @param page 分页对象
-     * @param members 查询实体
+     * @param memberView 查询实体
      * @return 所有数据
      */
     @GetMapping
-    public ResponseEntity<Page<Members>> selectAll(Page<Members> page, Members members) {
-        return ResponseEntity.ok(this.membersService.page(page, new QueryWrapper<>(members)));
+    public ResponseEntity<Page<MemberView>> selectAllByTeamId(Page<MemberView> page, MemberView memberView) {
+        return ResponseEntity.ok(this.memberViewService.page(page, new QueryWrapper<>(memberView)));
     }
 
     /**
@@ -80,6 +84,5 @@ public class MembersController {
     public ResponseEntity<Boolean> delete(@RequestParam("idList")  List<String> idList) {
         return ResponseEntity.ok(this.membersService.removeByIds(idList));
     }
-
 }
 

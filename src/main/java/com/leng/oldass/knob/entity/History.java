@@ -1,39 +1,36 @@
-package com.leng.oldass.teamSpace.entity;
+package com.leng.oldass.knob.entity;
 
 import java.io.Serial;
+import java.util.Date;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 成员(Members)表实体类
+ * 历史记录(History)表实体类
  *
  * @author lengzq
- * @since 2022-05-06 18:01:34
+ * @since 2022-05-06 23:03:10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Members extends Model<Members> {
+public class History extends Model<History> {
     
     @Serial
     private static final long serialVersionUID = 853653676739384949L;
     
     /**
-     * 主键id
+     * 历史记录id
      */
     private String id;
     /**
-     * 团队id
-     */
-    private String teamId;
-    /**
-     * 成员id
+     * 用户id
      */
     private String userId;
     /**
-     * 角色id
+     * 文章id
      */
-    private String roleId;
+    private String articleId;
 
 }
 

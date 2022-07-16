@@ -1,7 +1,7 @@
-package com.leng.oldass.teamSpace.service;
+package com.leng.oldass.team.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.leng.oldass.teamSpace.entity.Members;
+import com.leng.oldass.team.entity.Members;
 
 /**
  * 成员(Members)表服务接口

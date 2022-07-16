@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2022/1/9 18:04
  */
 public class CodeUtil {
-    private static Logger logger = LoggerFactory.getLogger(CodeUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(CodeUtil.class);
     /**
      * 将获取到的前端参数转为String类型
      * @param request 请求

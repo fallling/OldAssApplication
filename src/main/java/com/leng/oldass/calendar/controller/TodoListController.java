@@ -56,6 +56,8 @@ public class TodoListController {
      */
     @PostMapping
     public ResponseEntity<Boolean> insert(@RequestBody TodoList todoList) {
+        todoList.setStatus("进行中");
+        todoList.setListRepeat("0");
         return ResponseEntity.ok(this.todoListService.save(todoList));
     }
 

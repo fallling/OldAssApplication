@@ -28,11 +28,11 @@ public enum ResultCode {
     /**
      * 响应状态码
      */
-    private Integer code;
+    private final Integer code;
     /**
      * 响应信息
      */
-    private String message;
+    private final String message;
 
     ResultCode(Integer code, String msg) {
         this.code = code;

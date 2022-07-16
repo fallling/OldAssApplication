@@ -1,6 +1,9 @@
 package com.leng.oldass.login.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.leng.oldass.knob.dto.ArticleVo;
 import com.leng.oldass.login.dao.UserDao;
 import com.leng.oldass.login.entity.User;
 import com.leng.oldass.login.service.UserService;
@@ -33,6 +36,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     public boolean isExistUserName(String username){
         return userDao.selectByUserName(username) != null;
+    }
+
+    @Override
+    public Page<User> fuzzyQuery(Page<User> page, String arg) {
+        return userDao.fuzzyQuery(page,arg,arg);
     }
 }
 

@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     private UserServiceImpl userService;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/login")
     public RespBean login(){
@@ -43,6 +43,7 @@ public class LoginController {
             String email = request.getParameter("email");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
+            String nickName = request.getParameter("nickName");
             if(userService.isExistEmail(email)){
                 return RespBean.error("该邮箱已被注册",1002);
             }else if(userService.isExistUserName(username)){
@@ -51,6 +52,7 @@ public class LoginController {
                 User user = new User();
                 user.setUserId(String.valueOf(UUID.randomUUID()));
                 user.setUserName(username);
+                user.setNickName(nickName);
                 user.setUserPass(new BCryptPasswordEncoder().encode(password));
                 user.setEmail(email);
                 userService.save(user);

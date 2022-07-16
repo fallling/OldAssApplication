@@ -56,6 +56,7 @@ public class CalendarController {
      */
     @PostMapping
     public ResponseEntity<Boolean> insert(@RequestBody Calendar calendar) {
+        System.out.println(calendar);
         return ResponseEntity.ok(this.calendarService.save(calendar));
     }
 

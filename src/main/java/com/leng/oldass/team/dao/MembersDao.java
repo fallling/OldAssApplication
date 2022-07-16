@@ -1,7 +1,7 @@
-package com.leng.oldass.teamSpace.dao;
+package com.leng.oldass.team.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.leng.oldass.teamSpace.entity.Members;
+import com.leng.oldass.team.entity.Members;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

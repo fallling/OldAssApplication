@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class AopLog {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 线程局部的变量，用于解决多线程中相同变量的访问冲突问题
      */

@@ -1,40 +1,39 @@
-package com.leng.oldass.calendar.entity;
+package com.leng.oldass.team.entity;
 
-import java.util.Date;
 import java.io.Serial;
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 用户日程(UserCalendar)表实体类
+ * 成员(Members)表实体类
  *
  * @author lengzq
- * @since 2022-03-20 02:32:08
+ * @since 2022-05-06 18:01:34
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserCalendar extends Model<UserCalendar> {
+public class Members extends Model<Members> {
     
     @Serial
     private static final long serialVersionUID = 853653676739384949L;
-
+    
     /**
-     * ID
+     * 主键id
      */
-    @TableId
     private String id;
     /**
-     * 用户ID
+     * 团队id
+     */
+    private String teamId;
+    /**
+     * 成员id
      */
     private String userId;
     /**
-     * 日程ID
+     * 角色id
      */
-    private String calendarId;
+    private String roleId;
 
 }
 

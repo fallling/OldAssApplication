@@ -13,7 +13,7 @@ public class Result<T> implements Serializable {
     /**
      * 是否成功
      */
-    private Boolean success;
+    private final Boolean success;
 
     /**
      * 响应状态码

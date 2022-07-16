@@ -1,9 +1,9 @@
-package com.leng.oldass.teamSpace.service.impl;
+package com.leng.oldass.team.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.leng.oldass.teamSpace.dao.MembersDao;
-import com.leng.oldass.teamSpace.entity.Members;
-import com.leng.oldass.teamSpace.service.MembersService;
+import com.leng.oldass.team.dao.MembersDao;
+import com.leng.oldass.team.entity.Members;
+import com.leng.oldass.team.service.MembersService;
 import org.springframework.stereotype.Service;
 
 /**

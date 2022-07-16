@@ -37,6 +37,11 @@ public class UserController {
         return ResponseEntity.ok(this.userService.page(page, new QueryWrapper<>(user)));
     }
 
+    @GetMapping("/fuzzyQuery")
+    public ResponseEntity<Page<User>> fuzzyQuery(Page<User> page, String arg) {
+        return ResponseEntity.ok(this.userService.fuzzyQuery(page, arg));
+    }
+
     /**
      * 通过主键查询单条数据
      *

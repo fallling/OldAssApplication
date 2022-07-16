@@ -1,9 +1,10 @@
-package com.leng.oldass.teamSpace.controller;
+package com.leng.oldass.team.controller;
 
-import com.leng.oldass.teamSpace.entity.Members;
-import com.leng.oldass.teamSpace.entity.Team;
-import com.leng.oldass.teamSpace.service.MembersService;
-import com.leng.oldass.teamSpace.service.TeamService;
+import com.leng.oldass.team.dto.TeamDto;
+import com.leng.oldass.team.entity.Members;
+import com.leng.oldass.team.entity.Team;
+import com.leng.oldass.team.service.MembersService;
+import com.leng.oldass.team.service.TeamService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,18 +62,34 @@ public class TeamController {
     /**
      * 新增数据
      *
-     * @param team 实体对象
+     * @param teamDto 实体数据传输类
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Boolean> createTeam(@RequestBody Team team) {
+    public ResponseEntity<Boolean> createTeam(@RequestBody TeamDto teamDto) {
         try {
+            Team team = new Team();
             team.setTeamId(String.valueOf(UUID.randomUUID()));
+            team.setTeamName(teamDto.getTeamName());
+            team.setTeamIntro(teamDto.getTeamIntro());
+            team.setCreateUser(teamDto.getCreateUser());
+            Date date = new Date(System.currentTimeMillis());
+            team.setCreateTime(date);
+            this.teamService.save(team);
+            //保存成员
+            for(String item : teamDto.getMembers()){
+                Members members = new Members();
+                members.setTeamId(team.getTeamId());
+                members.setRoleId("2");
+                members.setUserId(item);
+                this.membersService.save(members);
+            }
+            //管理员
             Members members = new Members();
             members.setUserId(team.getCreateUser());
             members.setTeamId(team.getTeamId());
             members.setRoleId("1");
-            this.teamService.save(team);
+
             this.membersService.save(members);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
@@ -97,7 +117,18 @@ public class TeamController {
      */
     @DeleteMapping
     public ResponseEntity<Boolean> delete(@RequestParam("idList")  List<String> idList) {
-        return ResponseEntity.ok(this.teamService.removeByIds(idList));
+        try {
+            for(String id : idList){
+                Members members = new Members();
+                members.setTeamId(id);
+                this.membersService.remove(new QueryWrapper<>(members));
+            }
+            ResponseEntity.ok(this.teamService.removeByIds(idList));
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(false);
     }
 
 }

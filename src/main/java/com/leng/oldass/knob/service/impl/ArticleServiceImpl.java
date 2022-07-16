@@ -26,5 +26,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     public Page<ArticleVo> articleList(Page<ArticleVo> page, QueryWrapper<ArticleVo> wrapper) {
         return articleDao.articleList(page,wrapper);
     }
+
 }
 

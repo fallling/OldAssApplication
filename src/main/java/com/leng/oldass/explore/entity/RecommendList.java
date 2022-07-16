@@ -39,30 +39,5 @@ public class RecommendList extends Model<RecommendList> {
      * 封面
      */
     private String coverImg;
-    /**
-     * 租户号
-     */
-    private String tenantId;
-    /**
-     * 乐观锁
-     */
-    private Integer revision;
-    /**
-     * 创建人
-     */
-    private String createdBy;
-    /**
-     * 创建时间
-     */
-    private Date createdTime;
-    /**
-     * 更新人
-     */
-    private String updatedBy;
-    /**
-     * 更新时间
-     */
-    private Date updatedTime;
-
 }
 
