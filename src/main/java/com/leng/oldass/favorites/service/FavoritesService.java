@@ -4,6 +4,8 @@ import com.leng.oldass.favorites.entity.Favorites;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * 收藏表(Favorites)表服务接口
  *

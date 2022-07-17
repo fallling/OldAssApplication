@@ -1,8 +1,11 @@
 package com.leng.oldass.favorites.dao;
 
 import com.leng.oldass.favorites.entity.Favorites;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -11,6 +14,7 @@ import java.util.List;
  * @author xzmb
  * @since 2022-07-17 16:05:07
  */
+@Mapper
 public interface FavoritesDao {
 
     /**
@@ -20,6 +24,7 @@ public interface FavoritesDao {
      * @return 实例对象
      */
     Favorites queryById(Long id);
+
 
     /**
      * 查询指定行数据

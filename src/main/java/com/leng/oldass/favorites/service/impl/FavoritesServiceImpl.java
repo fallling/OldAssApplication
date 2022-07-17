@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 收藏表(Favorites)表服务实现类
@@ -79,4 +80,5 @@ public class FavoritesServiceImpl implements FavoritesService {
     public boolean deleteById(Long id) {
         return this.favoritesDao.deleteById(id) > 0;
     }
+
 }

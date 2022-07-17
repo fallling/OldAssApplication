@@ -1,5 +1,12 @@
 package com.leng.oldass.favorites.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import org.apache.ibatis.annotations.Insert;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -14,6 +21,7 @@ public class Favorites implements Serializable {
     /**
      * 记录标识
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 列表名称
@@ -22,6 +30,7 @@ public class Favorites implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date creatTime;
 
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 收藏表(Favorites)表控制层
@@ -53,7 +54,7 @@ public class FavoritesController {
      * @param favorites 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Favorites> add(Favorites favorites) {
         return ResponseEntity.ok(this.favoritesService.insert(favorites));
     }
@@ -64,7 +65,7 @@ public class FavoritesController {
      * @param favorites 实体
      * @return 编辑结果
      */
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<Favorites> edit(Favorites favorites) {
         return ResponseEntity.ok(this.favoritesService.update(favorites));
     }
@@ -75,7 +76,7 @@ public class FavoritesController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteById(Long id) {
         return ResponseEntity.ok(this.favoritesService.deleteById(id));
     }
